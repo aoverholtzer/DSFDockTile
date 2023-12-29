@@ -96,6 +96,13 @@ public struct DockTile: NSViewRepresentable {
 	}
 
 	public func updateNSView(_ nsView: NSView, context: Context) {
+        if #unavailable(macOS 13), Thread.isMainThread == false {
+            DispatchQueue.main.async {
+                self.updateNSView(nsView, context: context)
+            }
+            return
+        }
+        
 		let which = (location == .window) ? nsView.window?.dockTile : NSApp?.dockTile
 
 		if let which = which {
