@@ -63,14 +63,14 @@ public enum DocTileLocation {
 @available(macOS 10.15, *)
 public struct DockTile: NSViewRepresentable {
 	private let location: DocTileLocation
-	private let label: String
+	private let label: String?
 	private let content: AnyView?
 
 	/// Create a docktile container
 	/// - Parameters:
 	///   - location: Which docktile to update (.application for the application docktile, .window for the docktile for the window containing the View)
 	///   - label: The label to apply to the docktile
-	public init(_ location: DocTileLocation = .application, label: String) {
+	public init(_ location: DocTileLocation = .application, label: String? = nil) {
 		self.content = nil
 		self.location = location
 		self.label = label
@@ -81,7 +81,7 @@ public struct DockTile: NSViewRepresentable {
 	///   - location: Which docktile to update (.application for the application docktile, .window for the docktile for the window containing the View)
 	///   - label: The label to apply to the docktile
 	///   - content: The content View to display in the docktile, or nil to restore the default doctile view
-	public init<ViewContentType: View>(_ which: DocTileLocation = .application, label: String = "", content: ViewContentType?) {
+	public init<ViewContentType: View>(_ which: DocTileLocation = .application, label: String? = nil, content: ViewContentType?) {
 		self.content = AnyView(content)
 		self.location = which
 		self.label = label
